@@ -7,5 +7,6 @@
     <author>lhp</author>  
     <version>1.0.0</version>  
     <date>1/2/2017</date>  
-    <minServerVersion>3.7.0</minServerVersion>  
+    <minServerVersion>3.7.0</minServerVersion>
+    <parentPlugin>restAPI</parentPlugin>
 </plugin>

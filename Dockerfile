@@ -1,6 +1,14 @@
 #在完成各种构建之后 比如
+FROM openjdk:8-jdk as builder
+COPY . /usr/src
+RUN apt-get update -qq \
+    && apt-get install -qqy ant \
+    && cd /usr/src \
+    && ant -Dhalt.on.plugin.error=true -Dno.package=true -f build/build.xml dist.bin
+
 FROM registry.cn-shanghai.aliyuncs.com/mingshz/openjdk-utf8:8-jre
-COPY ./target/openfire /opt/openfire
+
+COPY --from=builder /usr/src/target/openfire /opt/openfire
 #COPY --from=builder /usr/src/build/docker/entrypoint.sh /sbin/entrypoint.sh
 WORKDIR /opt/openfire
 

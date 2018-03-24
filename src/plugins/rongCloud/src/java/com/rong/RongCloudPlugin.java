@@ -8,8 +8,6 @@ import org.jivesoftware.openfire.muc.MUCEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.muc.interceptor.MUCEventListenerImpl;
-
 /**
  * 插件的入口类，负责注入这个插件的功能
  *

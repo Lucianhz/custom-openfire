@@ -11,7 +11,6 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.doowal.offlinepush.plugin.OfflinePushPlugin;
 import com.xiaomi.xmpush.server.Constants;
 import com.xiaomi.xmpush.server.Sender;
 

@@ -1336,6 +1336,8 @@
                 <path id="plugin.classpath.source">
                     <path refid="plugin.dependencies"/>
                     <fileset dir="@{pluginsrc}/@{plugin}" includes="lib/*.jar"/>
+                    <!--如果是offlinePushPlugin 则依赖 restApi-->
+                    <!--<fileset dir="${plugin.dev.dest.dir}/restAPI/target/lib" includes="plugin-restAPI.jar" />-->
                 </path>
 
                 <!-- Compile plugin source code -->

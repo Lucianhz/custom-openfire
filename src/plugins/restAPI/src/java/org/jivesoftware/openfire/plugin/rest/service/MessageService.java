@@ -59,8 +59,6 @@ import com.doowal.offlinepush.entity.MsgPush;
 import com.doowal.offlinepush.entity.MsgPushToken;
 import com.doowal.offlinepush.manager.MsgPushManager;
 
-import net.sf.kraken.protocols.xmpp.XMPPSession;
-
 @Path("restapi/v1/messages")
 public class MessageService {
 	private static final Logger Log = LoggerFactory.getLogger(MessageService.class);
