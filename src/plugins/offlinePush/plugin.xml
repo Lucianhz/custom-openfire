@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<plugin>  
+    <class>com.doowal.offlinepush.plugin.OfflinePushPlugin</class>  
+    <name>offlinepush</name>  
+    <description>Offline_Message_Push.</description>  
+    <author>lhp</author>  
+    <version>1.0.0</version>  
+    <date>1/2/2017</date>  
+    <minServerVersion>3.7.0</minServerVersion>  
+</plugin>

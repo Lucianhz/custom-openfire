@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<plugin>  
+    <class>com.doowal.im.plugin.ChatLogsPlugin</class>  
+    <name>chatLogs</name>  
+    <description>chatLogs.</description>  
+    <author>lhp</author>  
+    <version>1.0.0</version>  
+    <date>6/4/2017</date>  
+    <minServerVersion>4.0.0</minServerVersion>
+</plugin>
