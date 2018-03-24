@@ -96,6 +96,8 @@ public class JerseyWrapper extends ServletContainer {
 		prc.getClasses().add(StatisticsService.class);
 		prc.getClasses().add(MessageService.class);
 		prc.getClasses().add(RESTExceptionMapper.class);
+
+		prc.getClasses().add(RongCloudService.class);
 	}
 
 	public static String tryLoadingAuthenticationFilter(String customAuthFilterClassName) {
