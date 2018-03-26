@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Other-Libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/lib/cglib-nodep.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/hamcrest-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/i4jruntime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/jaxb-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/jmock.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/jmock-junit4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/jmock-legacy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/junit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/objenesis.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/build/lib/jmock.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/jmock-junit4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/lib/jmock-legacy.jar!/" />
+    </SOURCES>
+  </library>
+</component>
