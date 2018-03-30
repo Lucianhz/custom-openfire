@@ -654,7 +654,7 @@ public class OfflinePushPlugin implements Component, Plugin, PropertyEventListen
 	public void pushOfflineMsgByMuc(final Message message) {
 				Log.info("开始推送++++++++++");
 				String roomName = message.getFrom().getNode();
-				List<Map> members = roomController.findRoomUsers(roomName);
+				List<Map<String, Object>> members = roomController.findRoomUsers(roomName);
 				if(members!=null&&members.size()!=0){
 					Element root = message.getElement();
 					Element msgtype = root.element("msgtype");
@@ -902,7 +902,7 @@ public class OfflinePushPlugin implements Component, Plugin, PropertyEventListen
 	//小米推送群消息
 	//多个alias消息(推荐使用)
 	private void sendMessageToAliases(Packet packet) throws Exception {
-		List<Map> members = roomController.findRoomUsers(packet.getFrom().getNode());
+		List<Map<String, Object>> members = roomController.findRoomUsers(packet.getFrom().getNode());
 		String roomName = packet.getFrom().getNode();
 		Element root = packet.getElement();
 		Element msgtype = root.element("msgtype");

@@ -158,11 +158,11 @@ public class MUCRoomService {
 		if(roomName==null||"".equals(roomName)){
 			return ResultUtils.fail(ErrEnum.ERR_ROOMNAME_NULL.getMsg(),ErrEnum.ERR_ROOMNAME_NULL.getValue());
 		}
-		List<Map> list =  plugin.findRoomUsers(roomName);
+		List<Map<String, Object>> list =  plugin.findRoomUsers(roomName);
 		String pardon = plugin.findRoomPardonByRoomName(roomName);
 		Map us = null;  
 		if(list!=null){
-			for(Map map : list){
+			for(Map<String, Object> map : list){
 				String username = ((String)map.get("jid")).split("@")[0];
 				if("888888".equals(username)){
 					us = map;

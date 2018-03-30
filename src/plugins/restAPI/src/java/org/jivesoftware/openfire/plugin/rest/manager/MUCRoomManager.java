@@ -31,7 +31,7 @@ public class MUCRoomManager {
 			if(room==null||!"0".equals(room.getType())){
 				return;
 			}
-			List<Map> roomUsers = MUCRoomController.getInstance().findRoomUsers(roomName);
+			List<Map<String, Object>> roomUsers = MUCRoomController.getInstance().findRoomUsers(roomName);
 			if(roomUsers!=null){
 				List<String> pics = new ArrayList<String>();
 				int x = 0;
