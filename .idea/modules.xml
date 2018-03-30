@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/src/core.iml" filepath="$PROJECT_DIR$/src/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/plugins/offlinePush/offlinePush.iml" filepath="$PROJECT_DIR$/src/plugins/offlinePush/offlinePush.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/openfire.iml" filepath="$PROJECT_DIR$/.idea/openfire.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/plugins/restAPI/restAPI.iml" filepath="$PROJECT_DIR$/src/plugins/restAPI/restAPI.iml" />
     </modules>
