@@ -1464,4 +1464,38 @@ public class MUCRoomController {
     }
 
 
+    /**
+     *
+     * @param roomName roomName
+     * @param username 用户名或者jid
+     * @return 是否是群主
+     */
+    public boolean isRoomOwner(String roomName, String username) {
+//        只要它的上半节
+        String onlyUsername;
+        if (username.contains("@")){
+            onlyUsername = username.substring(0,username.lastIndexOf("@"));
+        }else
+            onlyUsername = username;
+
+        try {
+
+            try (Connection con = DbConnectionManager.getConnection()) {
+                try (PreparedStatement statement = con
+                        .prepareStatement("SELECT count(ma.jid) from ofmucaffiliation as ma LEFT JOIN ofmucroom as room on room.roomID=ma.roomID WHERE ma.jid like ? AND room.name = ?")) {
+                    statement.setString(1, onlyUsername+"@%");
+                    statement.setString(2, roomName);
+                    try (ResultSet rs = statement.executeQuery()) {
+                        if(rs.next()){
+                            return rs.getInt(1)>0;
+                        }else
+                            return false;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Log.error("isRoomOwner", ex);
+            return false;
+        }
+    }
 }

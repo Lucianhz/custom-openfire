@@ -1,28 +1,9 @@
 package org.jivesoftware.openfire.plugin.rest.service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
+import com.alibaba.fastjson.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import org.apache.commons.lang.StringUtils;
 import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.cluster.ClusterManager;
 import org.jivesoftware.openfire.muc.MUCRoom;
@@ -46,10 +27,27 @@ import org.jivesoftware.util.cache.CacheFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSONArray;
-
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Path("restapi/v1/chatrooms")
@@ -71,7 +69,7 @@ public class MUCRoomService {
 			@DefaultValue("false") @QueryParam("expandGroups") Boolean expand) {
 		return MUCRoomController.getInstance().getChatRooms(serviceName, channelType, roomSearch, expand);
 	}
-	
+
 	@GET
 	@Path("/{roomName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -111,11 +109,11 @@ public class MUCRoomService {
 		MUCRoomController.getInstance().updateChatRoom(roomName, serviceName, mucRoomEntity);
 		return Response.status(Status.OK).build();
 	}
-	
-	
+
+
 //----------------------------------------------------------------------------------------------------------------------------------
-	
-	
+
+
 	@PUT
 	@Path("/updateRoomPic/{roomName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -150,6 +148,20 @@ public class MUCRoomService {
 		}
 		return ResultUtils.fail(ErrEnum.ERR_SERVER_ERR.getMsg(),ErrEnum.ERR_SERVER_ERR.getValue());
 	}
+
+	@GET
+	@Path("/isOwner/{roomName}/{username}")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public String isOwner(@PathParam("roomName") String roomName,@PathParam("username") String username){
+		if (StringUtils.isEmpty(roomName)){
+            return ResultUtils.fail(ErrEnum.ERR_ROOMNAME_NULL.getMsg(),ErrEnum.ERR_ROOMNAME_NULL.getValue());
+        }
+        if (StringUtils.isEmpty(username)){
+            return ResultUtils.fail(ErrEnum.ERR_USERNAME_NULL.getMsg(),ErrEnum.ERR_USERNAME_NULL.getValue());
+        }
+        return ResultUtils.success(plugin.isRoomOwner(roomName,username));
+	}
+
 	@GET
 	@Path("/findUsers/{roomName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -160,7 +172,7 @@ public class MUCRoomService {
 		}
 		List<Map<String, Object>> list =  plugin.findRoomUsers(roomName);
 		String pardon = plugin.findRoomPardonByRoomName(roomName);
-		Map us = null;  
+		Map us = null;
 		if(list!=null){
 			for(Map<String, Object> map : list){
 				String username = ((String)map.get("jid")).split("@")[0];
@@ -168,7 +180,7 @@ public class MUCRoomService {
 					us = map;
 				}
 				Map param = userManager.findUserNickNameAndPic(username);
-				String nickName = null; 
+				String nickName = null;
 				String pic = null;
 				//如果是免死用户
 				if(username.equals(pardon)){
@@ -182,7 +194,7 @@ public class MUCRoomService {
 						pic = (String)param.get("pic");
 					}
 				}
-				
+
 				map.put("nickName", nickName);
 				map.put("pic", pic);
 			}
@@ -324,7 +336,7 @@ public class MUCRoomService {
 		if(roomName==null||"".equals(roomName)){
 			return ResultUtils.fail(ErrEnum.ERR_ROOMNAME_NULL.getMsg(),ErrEnum.ERR_ROOMNAME_NULL.getValue());
 		}
-		int affi = plugin.findAffiliation(roomName, jid);		
+		int affi = plugin.findAffiliation(roomName, jid);
 		MUCRoomEntity mr = plugin.findRoomDetail(roomName);
 		JsonConfig jc = new JsonConfig();
 		jc.setExcludes(new String[]{"adminGroups", "admins","broadcastPresenceRoles","canAnyoneDiscoverJID","canChangeNickname","canOccupantsChangeSubject","canOccupantsInvite","logEnabled","loginRestrictedToNickname","memberGroups","members","membersOnly","moderated","outcastGroups","outcasts","ownerGroups","owners","persistent","publicRoom","registrationEnabled","modificationDate"});
@@ -636,7 +648,7 @@ public class MUCRoomService {
 		if(status==1){
 			plugin.deleteRoomValidateById(id);
 			return ResultUtils.success("成功");
-		} 
+		}
 		return ResultUtils.fail("状态码错误", ErrEnum.ERR_STATUS_ERR.getValue());
 	}
 	@POST
@@ -649,18 +661,18 @@ public class MUCRoomService {
 			return ResultUtils.fail("群名称为空", ErrEnum.ERR_ROOMNAME_NULL.getValue());
 		}
 		Integer num = null;
-		Integer size = null; 
+		Integer size = null;
 		if(pageNum == null){
 			num = 1;
 		}else{
 			num = pageNum;
 		}
 		if(pageSize == null){
-			size = 15; 
+			size = 15;
 		}else{
 			size = pageSize;
 		}
-		
+
 		Integer start = (num-1)*size;
 		List<Map<String,Object>> list = plugin.findRoomValidateList(roomName,start,size);
 		if(list==null){
@@ -719,7 +731,7 @@ public class MUCRoomService {
 			@FormParam("odds") String odds, @FormParam("roomId") Long roomId,
 			@FormParam("settlementNumber") String settlementNumber,
 			@FormParam("rush") String rush){
-		
+
 		if(roomId==null){
 			return ResultUtils.fail("群ID为空", ErrEnum.ERR_ROOMNAME_NULL.getValue());
 		}
@@ -894,8 +906,8 @@ public class MUCRoomService {
 		map.put("isGag", isGag);
 		return ResultUtils.success(map);
 	}
-	
-	
+
+
 }
 
 
